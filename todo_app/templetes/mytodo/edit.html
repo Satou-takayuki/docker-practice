@@ -1,0 +1,51 @@
+
+{% extends "base.html" %}
+
+{% block title %}
+- Edit -
+{% endblock %}
+
+{% block contents %}
+<div class="edit">
+    <h1>タスクの編集</h1>
+    <form action="{% url 'edit' task.id %}" method="post">
+        {% csrf_token %}
+        <input type="hidden" name="task_id" value="{{ task.id }}">
+        
+        <div>
+            <label for="{{ form.title.id_for_label }}">タイトル:</label>
+            {{ form.title }}
+            {% for error in form.title.errors %}
+                <div class="field-error">{{ error }}</div>
+            {% endfor %}
+        </div>
+
+        <div>
+            <label for="{{ form.description.id_for_label }}">詳細:</label>
+            {{ form.description }}
+            {% for error in form.description.errors %}
+                <div class="field-error">{{ error }}</div>
+            {% endfor %}
+        </div>
+
+        <div>
+            <label for="{{ form.start_date.id_for_label }}">開始日:</label>
+            {{ form.start_date }}
+            {% for error in form.start_date.errors %}
+                <div class="field-error">{{ error }}</div>
+            {% endfor %}
+        </div>
+
+        <div>
+            <label for="{{ form.end_date.id_for_label }}">終了日:</label>
+            {{ form.end_date }}
+            {% for error in form.end_date.errors %}
+                <div class="field-error">{{ error }}</div>
+            {% endfor %}
+        </div>
+
+        <button type="submit">保存</button>
+    </form>
+</div>
+<a href="{% url 'index' %}">一覧へ戻る</a>
+{% endblock %}
